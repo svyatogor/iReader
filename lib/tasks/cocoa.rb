@@ -10,7 +10,7 @@ module HotCocoa
     
     class Configuration
       
-      attr_reader :name, :version, :icon, :resources, :sources, :info_string, :load, :info_plist, :frameworks
+      attr_reader :name, :version, :icon, :resources, :sources, :info_string, :load, :info_plist
       
       def initialize(file)
         require 'yaml'
@@ -23,7 +23,6 @@ module HotCocoa
         @sources = yml["sources"] || []
         @resources = yml["resources"] || []
         @info_plist = yml["info_plist"]
-        @frameworks = yml["frameworks"] || []
         @overwrite = yml["overwrite"] == true ? true : false
         @secure = yml["secure"] == true ? true : false
       end
@@ -44,7 +43,7 @@ module HotCocoa
     
     ApplicationBundlePackage = "APPL????"
     
-    attr_accessor :name, :load_file, :sources, :overwrite, :icon, :version, :info_string, :secure, :resources, :deploy, :info_plist, :frameworks
+    attr_accessor :name, :load_file, :sources, :overwrite, :icon, :version, :info_string, :secure, :resources, :deploy, :info_plist
     
     def self.build(config, options={:deploy => false})
       builder = new
@@ -57,7 +56,6 @@ module HotCocoa
       builder.info_string = config.info_string
       builder.overwrite = config.overwrite?
       builder.info_plist = config.info_plist
-      builder.frameworks = config.frameworks
       config.sources.each do |source|
         builder.add_source_path source
       end
@@ -211,8 +209,7 @@ module HotCocoa
           }
         end
         archs = RUBY_ARCH.include?('ppc') ? '-arch ppc' : '-arch i386 -arch x86_64'
-        other_frameworks = (@frameworks.map {|f| "-framework #{f}"}).join(" ")
-        puts `cd "#{macos_root}" && gcc main.m -o #{objective_c_executable_file} #{archs} -framework MacRuby -framework Foundation #{other_frameworks} -fobjc-gc-only`
+        puts `cd "#{macos_root}" && gcc main.m -o #{objective_c_executable_file} #{archs} -framework MacRuby -framework Foundation -fobjc-gc-only`
         File.unlink(objective_c_source_file)
       end
       

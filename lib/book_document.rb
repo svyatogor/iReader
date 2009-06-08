@@ -7,6 +7,8 @@
 #
 
 framework 'cocoa'
+framework 'WebKit'
+
 require 'base64'
 require "#{SOURCE_DIR}/model/book"
 require "#{SOURCE_DIR}/preferences"
