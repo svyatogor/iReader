@@ -1,0 +1,12 @@
+name: iReader
+load: lib/application.rb
+version: "1.0"
+icon: resources/iReader.icns
+overwrite: true
+info_plist: resources/Info.plist
+frameworks: 
+  - WebKit
+resources:
+  - resources/**/*.*
+sources: 
+  - lib/**/*.rb

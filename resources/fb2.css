@@ -1,0 +1,17 @@
+HTML, BODY {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+}
+
+BODY .title {
+	font-size: 3em;	
+	font-weight: bold;
+}
+
+.chapter .title {
+	font-size: 2.6em;
+}
+
+P {
+	text-align:justify;
+}
